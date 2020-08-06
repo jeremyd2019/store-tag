@@ -24,7 +24,13 @@ async function run() {
     core.startGroup("Creating tag object");
     const { data: tag } = await gh.git.createTag({owner, repo, tag: input.name, message: input.value, object: github.context.sha, type: 'commit'});
     changeGroup("Updating ref");
-    await gh.git.updateRef({owner, repo, ref: `refs/tags/${tag.tag}`, sha: tag.sha, force: true});
+    console.log(`Ref ${tag.tag}, sha ${tag.sha}`);
+    try {
+      await gh.git.createRef({owner, repo, ref: `refs/tags/${tag.tag}`, sha: tag.sha});
+    }
+    catch (error) {
+      await gh.git.updateRef({owner, repo, ref: `refs/tags/${tag.tag}`, sha: tag.sha, force: true});
+    }
     core.endGroup();
   }
   catch (error) {
