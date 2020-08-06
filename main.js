@@ -29,7 +29,7 @@ async function run() {
       await gh.git.createRef({owner, repo, ref: `refs/tags/${tag.tag}`, sha: tag.sha});
     }
     catch (error) {
-      await gh.git.updateRef({owner, repo, ref: `refs/tags/${tag.tag}`, sha: tag.sha, force: true});
+      await gh.git.updateRef({owner, repo, ref: `tags/${tag.tag}`, sha: tag.sha, force: true});
     }
     core.endGroup();
   }
