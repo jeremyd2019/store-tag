@@ -1,0 +1,16 @@
+name: 'Store Tag'
+description: 'Store a value into a tag message'
+branding:
+  color: purple
+  icon: tag
+inputs:
+  name:
+    description: 'name of tag to create or update'
+    required: true
+  value:
+    description: 'value to set'
+    required: true
+
+runs:
+  using: 'node12'
+  main: 'index.js'
